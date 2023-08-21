@@ -2,13 +2,13 @@ import "./globals.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AudioPlex",
-  description: "Plex Audio!",
-  icons:{
+  title: "My Spotify",
+  description: "My Spotify",
+  icons: {
     icon: "/icon.png",
     shortcut: "/icon.png",
-    apple: "/icon.png"
-  }
+    apple: "/icon.png",
+  },
 };
 
 interface ExamplesLayoutProps {

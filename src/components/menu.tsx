@@ -14,11 +14,17 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import Logo from "@/app/icon.png";
+import Image from "next/image";
+import Link from "next/link";
 
 export function Menu() {
   return (
     <Menubar className="rounded-none border-b border-none px-2 lg:px-4">
       <MenubarMenu>
+        <Link href={"/"}>
+          <Image src={Logo} height={20} width={20} alt="logo" />
+        </Link>
         <MenubarTrigger className="font-bold">Music</MenubarTrigger>
         <MenubarContent>
           <MenubarItem>About Music</MenubarItem>
