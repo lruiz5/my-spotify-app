@@ -4,6 +4,11 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "AudioPlex",
   description: "Plex Audio!",
+  icons:{
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png"
+  }
 };
 
 interface ExamplesLayoutProps {
