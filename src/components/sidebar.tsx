@@ -1,23 +1,19 @@
+"use client";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Playlist } from "@/data/playlists";
-import {
-  BsPersonCircle,
-  BsPlayCircle,
-  BsCollection,
-  BsBoombox,
-  BsMusicNoteList,
-  BsMusicNoteBeamed,
-  BsPerson,
-  BsPalette,
-} from "react-icons/bs";
+import { discoverNavItems, libraryNavItems } from "@/constants/nav-items";
+import { buttonVariants } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   playlists: Playlist[];
 }
 
 export function Sidebar({ className, playlists }: SidebarProps) {
+  const pathname = usePathname();
   return (
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4">
@@ -26,22 +22,23 @@ export function Sidebar({ className, playlists }: SidebarProps) {
             Discover
           </h2>
           <div className="space-y-1">
-            <Button variant="secondary" className="w-full justify-start">
-              <BsPersonCircle className="mr-2 h-4 w-4" />
-              Profile
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              <BsPlayCircle className="mr-2 h-4 w-4" />
-              Listen Now
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              <BsCollection className="mr-2 h-4 w-4" />
-              Browse
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              <BsBoombox className="mr-2 h-4 w-4" />
-              Radio
-            </Button>
+            {discoverNavItems.map(({ title, Icon, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "w-full",
+                  pathname === href
+                    ? "bg-gray-100 hover:bg-gray-100"
+                    : "hover:bg-gray-100",
+                  "justify-start"
+                )}
+              >
+                <Icon className="mr-2 h-4 w-4" />
+                {title}
+              </Link>
+            ))}
           </div>
         </div>
         <div className="px-3 py-2">
@@ -49,40 +46,23 @@ export function Sidebar({ className, playlists }: SidebarProps) {
             Library
           </h2>
           <div className="space-y-1">
-            <Button variant="ghost" className="w-full justify-start">
-              <BsMusicNoteList className="mr-2 h-4 w-4" />
-              Playlists
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              <BsMusicNoteBeamed className="mr-2 h-4 w-4" />
-              Songs
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              <BsPerson className="mr-2 h-4 w-4" />
-              Made for You
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              <BsPalette className="mr-2 h-4 w-4" />
-              Artists
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 h-4 w-4"
+            {libraryNavItems.map(({ title, Icon, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "w-full",
+                  pathname === href
+                    ? "bg-gray-100 hover:bg-gray-100"
+                    : "hover:bg-gray-100",
+                  "justify-start"
+                )}
               >
-                <path d="m16 6 4 14" />
-                <path d="M12 6v14" />
-                <path d="M8 8v12" />
-                <path d="M4 4v16" />
-              </svg>
-              Albums
-            </Button>
+                <Icon className="mr-2 h-4 w-4" />
+                {title}
+              </Link>
+            ))}
           </div>
         </div>
         <div className="py-2">
