@@ -58,3 +58,58 @@ export const me = async () => {
     },
   });
 };
+
+export const userPlaylists = async () => {
+  const { access_token } = await getAccessToken();
+
+  return fetch(`https://api.spotify.com/v1/users/l.ruiz5/playlists`, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+};
+
+export const following = async () => {
+  const { access_token } = await getAccessToken();
+
+  return fetch("https://api.spotify.com/v1/me/following?type=artist", {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+};
+
+/**
+ * Fetches artist data from the Spotify API based on the provided artist ID.
+ *
+ * @param id - The unique identifier of the artist on Spotify.
+ * @returns A Promise that resolves to the artist data object or null if an error occurs.
+ */
+export const getArtist = async (id: string) => {
+  // Obtain the access token required for making the API request
+  const { access_token } = await getAccessToken(); // Replace with your access token retrieval logic
+
+  try {
+    // Fetch artist data from the Spotify API using the provided artist ID
+    const response = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    // If the response status is not in the 200-299 range, throw an error
+    if (!response.ok) {
+      throw new Error("Failed to fetch artist data");
+    }
+
+    // Parse the JSON response to extract artist data
+    const artistData = await response.json();
+
+    // Return the fetched artist data object
+    return artistData;
+  } catch (error) {
+    // Handle errors by logging and returning null
+    console.error("Error fetching artist:", error);
+    return null;
+  }
+};
