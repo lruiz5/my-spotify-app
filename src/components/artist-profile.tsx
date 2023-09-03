@@ -40,7 +40,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await fetch("/api/unsplashify", { cache: "no-store" });
+        const response = await fetch("/api/unsplashify");
         const data = await response.json();
         setBgUrl(data);
       } catch (error) {
@@ -54,9 +54,6 @@ export default function ProfilePage() {
       <PageLayout>
         <div className="h-1/2 bg-gray-200 dark:bg-gray-800 flex flex-wrap items-center justify-center">
           <div className="container px-0 lg:w-2/3 xl:w-2/3 sm:w-full md:w-2/3  bg-white  shadow-lg transform duration-200 easy-in-out">
-            <div className="h-32 w-full overflow-hidden">
-              <img className="w-full" src={bgUrl} alt="header-bg" />
-            </div>
             <div className="flex justify-center px-5  -mt-12">
               <img
                 className="h-32 w-32 bg-white p-2 rounded-full   "
